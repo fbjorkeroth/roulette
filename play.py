@@ -43,6 +43,29 @@ class Game:
         self.all_bets.append((player, bet))
 
 
+    def gen_winning_number():
+        """ Spin the wheel and generate the winning number. 
+        Assumes European wheel (no 00 value)."""
+        return random.randint(0, 36)
+
+
+    def communicate_win(self, player):
+        """ Print win message to console"""
+        print('Congratulations to',player.fname,player.lname,': you win!')
+
+
+    def resolve(self):
+        """ Finish game by choosing a number and paying out winners"""
+        print('Spin the wheel!')
+        w = Game.gen_winning_number()
+        print('Winning number is... ',w,'!')
+        for bets in self.all_bets:
+            p, b = bets
+            if w in b.bet_nums:
+                self.communicate_win(p)
+                Bet.payout(p, Bet.winnings(b.amount))
+
+
 class Bet:
     new_id = itertools.count(1)
 
@@ -50,6 +73,7 @@ class Bet:
         self.id = next(Bet.new_id)
         self.bet_nums = Bet.parse_input(bet_nums)
         self.amount = amount
+
 
     def parse_input(bet_nums):
         if isinstance(bet_nums, int):
@@ -59,3 +83,11 @@ class Bet:
         else:
             print('Error <Bet.parse_input>: bet not of recognised type')
             return None
+
+
+    def winnings(amount):
+        return 36 * amount
+
+
+    def payout(player, winnings):
+        player.bank += winnings
