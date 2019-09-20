@@ -16,11 +16,31 @@ class Player:
             self.bank = float(input('Input numerical value:'))
 
 
+    def place_bet(self, game, bet_nums, amount):
+        """Places a bet on one or several numbers dictated by 'numbers';
+        numbers may take an int, list or string input."""
+
+        print(self.fname,'is placing a bet: ',amount,'on',bet_nums)
+
+        if amount > self.bank:
+            print('Error <Player.place_bet>: Not enough money in bank')
+        else:
+            bet = Bet(bet_nums, amount)
+            self.bank -= bet.amount
+            game.add_bet(self, bet)
+
+
 class Game:
     new_id = itertools.count(1)
 
     def __init__(self):
+        self.all_bets = []
         self.id = next(Game.new_id)
+
+
+    def add_bet(self, player, bet):
+        """ Update list of bets in game."""
+        self.all_bets.append((player, bet))
 
 
 class Bet:
