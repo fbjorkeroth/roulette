@@ -18,10 +18,10 @@ An alternative implementation of the storage of bets in a game (`Game.all_bets`)
 
 The method `Bet.parse_input` may be extended to include 'named' bets in the method call, such as 'red', 'black', 'first dozen', 'voisins', etc. Each of these corresponds to a list of numbers, and is relatively straightforward to implement.
 
-The `winnings` method calculates the amount won, by simply multiplying the amount per number called by 36. Case-specific deviations from this simple formula due to, say,  special game rules may be incorporated by modifying this method.
+The `winnings` method calculates the amount won, by simply multiplying the amount per number called by 36. Case-specific deviations from this simple formula due to, say,  special game rules may be incorporated by modifying this method.  
 
 
-## To run
+## To run
 
 Requires Python 3.x with itertools and random. 
 
