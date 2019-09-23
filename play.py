@@ -63,7 +63,7 @@ class Game:
         for (p, b) in self.all_bets:
             if w in b.bet_nums:
                 self.communicate_win(p)
-                Bet.payout(p, Bet.winnings(b.amount))
+                Bet.payout(p, Bet.winnings(b.amount, b.bet_nums))
                 number_of_winners += 1
 
         if number_of_winners is 0:
@@ -91,10 +91,10 @@ class Bet:
             return None
 
 
-    def winnings(amount):
+    def winnings(amount, bet_nums):
         """ Function for calculating the return on a given bet. 
         May be extended to account for variations between bet types."""
-        return 36 * amount
+        return 36 * amount / len(bet_nums)
 
 
     def payout(player, winnings):
