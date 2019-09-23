@@ -59,11 +59,15 @@ class Game:
         print('Spin the wheel!')
         w = Game.gen_winning_number()
         print('Winning number is... ',w,'!')
-        for bets in self.all_bets:
-            p, b = bets
+        number_of_winners = 0
+        for (p, b) in self.all_bets:
             if w in b.bet_nums:
                 self.communicate_win(p)
                 Bet.payout(p, Bet.winnings(b.amount))
+                number_of_winners += 1
+
+        if number_of_winners is 0:
+            print('No winners this round!')
 
 
 class Bet:
@@ -72,10 +76,12 @@ class Bet:
     def __init__(self, bet_nums, amount):
         self.id = next(Bet.new_id)
         self.bet_nums = Bet.parse_input(bet_nums)
-        self.amount = amount
+        self.amount = amount # Total amount for bet (all chips)
 
 
     def parse_input(bet_nums):
+        """ Reads input string/list/number and parses it 
+        to return a list of numbers within a single bet."""
         if isinstance(bet_nums, int):
             return [bet_nums]
         elif isinstance(bet_nums, (list, tuple)):
@@ -86,8 +92,11 @@ class Bet:
 
 
     def winnings(amount):
+        """ Function for calculating the return on a given bet. 
+        May be extended to account for variations between bet types."""
         return 36 * amount
 
 
     def payout(player, winnings):
+        """ Update player account with winnings. """
         player.bank += winnings
