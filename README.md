@@ -1,24 +1,15 @@
 # SB&G API Tech Test
 
-
-## Description
-
 This package simulates the fundamentals of a roulette game. You can create players and individual roulette games, and place bets, with the methods defined in the three classes `Player`, `Game`, `Bet`.
 
 
-### Player
+## Methods 
 
-Initiate a player with a unique ID. The function `place_bet` calls a bet in a given game, for some set of numbers and some monetary amount. See also `Bet` below. Coding against a user interface, the appropriate method call can be mapped easily to a location on the roulette table.
+`Player`: initiate a player with a unique ID. The function `place_bet` calls a bet in a given game, for some set of numbers and some monetary amount. See also `Bet` below. Coding against a user interface, the appropriate method call can be mapped easily to a location on the roulette table.
 
+`Game`: instantiate a single game (one spin of the wheel). All bets within this game are stored in the `all_bets` attribute. The central function is `resolve`, which concludes the game by generating the winning number and matching it to all bets placed. Winners are notified through the `communicate_win` method.
 
-### Game
-
-Instantiate a single game (one spin of the wheel). All bets within this game are stored in the `all_bets` attribute. The central function is `resolve`, which concludes the game by generating the winning number and matching it to all bets placed. Winners are notified through the `communicate_win` method.
-
-
-### Bet
-
-Each instance is a single bet by a single player. The method `parse_inputs` accepts an integer or a list of integers. Methods `winnings` and `payout` calculate the amount won on a successful bet, and update the winner's account accordingly.  
+`Bet`: each instance is a single bet by a single player. The method `parse_inputs` accepts an integer or a list of integers. Methods `winnings` and `payout` calculate the amount won on a successful bet, and update the winner's account accordingly.  
 
 
 ## Alternatives and future development
