@@ -26,8 +26,9 @@ class Player:
             print('Error <Player.place_bet>: Not enough money in bank')
         else:
             bet = Bet(bet_nums, amount)
-            self.bank -= bet.amount
-            game.add_bet(self, bet)
+            if bet.bet_nums is not None:
+                self.bank -= bet.amount
+                game.add_bet(self, bet)
 
 
 class Game:
@@ -84,7 +85,8 @@ class Bet:
         to return a list of numbers within a single bet."""
         if isinstance(bet_nums, int):
             return [bet_nums]
-        elif isinstance(bet_nums, (list, tuple)):
+        elif isinstance(bet_nums, (list, tuple)) and \
+                all(isinstance(x, int) for x in bet_nums):
             return list(bet_nums)
         else:
             print('Error <Bet.parse_input>: bet not of recognised type')
